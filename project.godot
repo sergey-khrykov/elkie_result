@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Object",
+"class": "AI",
+"language": "GDScript",
+"path": "res://script/ai.gd"
+}, {
+"base": "Object",
+"class": "BoardData",
+"language": "GDScript",
+"path": "res://script/board_data.gd"
+}, {
+"base": "Object",
+"class": "Move",
+"language": "GDScript",
+"path": "res://script/move.gd"
+} ]
+_global_script_class_icons={
+"AI": "",
+"BoardData": "",
+"Move": ""
+}
+
+[application]
+
+config/name="Game"
+run/main_scene="res://script/game.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://script/global.gd"
+
+[display]
+
+window/size/width=512
+window/size/height=576
+window/size/resizable=false
+window/stretch/aspect="keep"
+window/image=""
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

@@ -1,0 +1,185 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://gfx/selected.png" type="Texture" id=1]
+[ext_resource path="res://script/game.gd" type="Script" id=2]
+[ext_resource path="res://font/nunito_24_72.tres" type="DynamicFont" id=3]
+[ext_resource path="res://script/checker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://font/nunito_40.tres" type="DynamicFont" id=5]
+[ext_resource path="res://script/moves_view.gd" type="Script" id=6]
+[ext_resource path="res://script/action_hint.gd" type="Script" id=7]
+[ext_resource path="res://script/gui_gameplay.gd" type="Script" id=8]
+[ext_resource path="res://script/gui_ending.gd" type="Script" id=9]
+[ext_resource path="res://script/board_bg.gd" type="Script" id=10]
+[ext_resource path="res://script/checkers_view.gd" type="Script" id=11]
+[ext_resource path="res://style/button_style.tres" type="StyleBox" id=12]
+[ext_resource path="res://style/button_style_disabled.tres" type="StyleBox" id=13]
+[ext_resource path="res://style/button_style_pressed.tres" type="StyleBox" id=14]
+[ext_resource path="res://style/button_style_hover.tres" type="StyleBox" id=15]
+
+[node name="game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="board" type="Panel" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -512.0
+rect_min_size = Vector2( 512, 512 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="board_bg" type="Node2D" parent="board"]
+script = ExtResource( 10 )
+
+[node name="checkers_view" type="Control" parent="board"]
+margin_right = 512.0
+margin_bottom = 512.0
+mouse_filter = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="selection_circle" type="TextureRect" parent="board/checkers_view"]
+visible = false
+margin_right = 256.0
+margin_bottom = 256.0
+rect_scale = Vector2( 0.25, 0.25 )
+mouse_filter = 2
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="board/checkers_view"]
+playback_speed = 7.5
+playback/speed = 7.5
+
+[node name="moves_view" type="Control" parent="board"]
+margin_right = 512.0
+margin_bottom = 512.0
+mouse_filter = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gui_gameplay" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 512, 64 )
+color = Color( 0.976471, 0.690196, 0.403922, 1 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="whos_turn" parent="gui_gameplay" instance=ExtResource( 4 )]
+
+[node name="turn_label" type="Label" parent="gui_gameplay"]
+margin_left = 72.0
+margin_right = 192.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "turn:"
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="turn_counter" type="Label" parent="gui_gameplay"]
+margin_left = 192.0
+margin_right = 256.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "1"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action_hint" type="Label" parent="gui_gameplay"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -256.0
+margin_top = 19.0
+margin_right = -16.0
+margin_bottom = 54.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "end turn"
+align = 2
+valign = 1
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gui_ending" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 512, 64 )
+color = Color( 0.976471, 0.690196, 0.403922, 1 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="whos_turn" parent="gui_ending" instance=ExtResource( 4 )]
+
+[node name="win_label" type="Label" parent="gui_ending"]
+margin_left = 72.0
+margin_right = 192.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "WINS!"
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="restart_button" type="Button" parent="gui_ending"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -152.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 15 )
+custom_styles/disabled = ExtResource( 13 )
+custom_styles/normal = ExtResource( 12 )
+text = "play again"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="border" type="ColorRect" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+margin_top = 62.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 512, 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
